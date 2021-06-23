@@ -41,9 +41,9 @@ public class RoleController {
      */
     @RequestMapping("/saveOrUpdateRole")
     public ResponseResult saveOrUpdateRole(@RequestBody Role role, HttpServletRequest request) {
-        //User user = (User) request.getSession().getAttribute("user1");
-        //String name = user.getName();
-        String name = "system";
+        User user = (User) request.getSession().getAttribute("user");
+        String name = user.getName();
+        //String name = "system";
         try {
             if (role.getId() == null) {
                 Date date = new Date();
