@@ -11,4 +11,9 @@ public interface ResourceCategoryMapper {
      */
     public List<ResourceCategory> findAllResourceCategory();
 
+    void saveResourceCategory(ResourceCategory resourceCategory);
+
+    void updateResourceCategory(ResourceCategory resourceCategory);
+
+    void deleteResourceCategory(Integer id);
 }

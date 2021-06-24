@@ -4,6 +4,7 @@ import com.lagou.domain.Menu;
 import com.lagou.domain.ResponseResult;
 import com.lagou.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,6 +67,27 @@ public class MenuController {
 
         }
 
+    }
+
+    /*
+        添加&修改菜单
+     */
+    @RequestMapping("/saveOrUpdateMenu")
+    public ResponseResult saveOrUpdateMenu(@RequestBody Menu menu) {
+        try {
+            if (menu.getId() == null) {
+                menuService.saveMenu(menu);
+                ResponseResult result = new ResponseResult(true, 200, "新增响应成功", null);
+                return result;
+            } else {
+                menuService.updateMenu(menu);
+                ResponseResult result = new ResponseResult(true, 200, "修改响应成功", null);
+                return result;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

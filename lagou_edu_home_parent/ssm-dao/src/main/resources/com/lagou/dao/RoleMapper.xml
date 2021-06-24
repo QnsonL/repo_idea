@@ -15,6 +15,29 @@
 
     </select>
 
+    <resultMap id="ResourceCategory" type="com.lagou.domain.ResourceCategory">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="resourceList" ofType="com.lagou.domain.Resource" column="{roleId=role_id,id=id}" select="findResourceListByRoleId2"/>
+    </resultMap>
+
+    <!--查询当前角色拥有的资源分类信息-->
+    <select id="findResourceListByRoleId" parameterType="int" resultMap="ResourceCategory">
+        SELECT DISTINCT rc.id,rc.name,rrr.role_id
+            FROM role_resource_relation rrr
+            INNER JOIN resource r ON rrr.resource_id = r.id
+            INNER JOIN resource_category rc ON r.category_id = rc.id
+        WHERE rrr.role_id = #{roleId};
+    </select>
+
+    <!--查询当前角色拥有的资源信息-->
+    <select id="findResourceListByRoleId2" parameterType="java.util.HashMap" resultType="com.lagou.domain.Resource">
+        SELECT r.id,r.name,r.url,r.category_id,r.description
+            FROM role_resource_relation rrr
+            INNER JOIN resource r ON rrr.resource_id = r.id
+        WHERE rrr.role_id = #{roleId} AND r.category_id = #{id};
+    </select>
+
     <!--添加广告-->
     <insert id="saveRole" parameterType="com.lagou.domain.Role" >
         insert INTO roles VALUES(NULL,#{code},#{name},#{description},#{createdTime},#{updatedTime},#{createdBy},#{updatedBy});
@@ -73,5 +96,17 @@
         delete from roles where id = #{roleid}
     </delete>
 
+    <!--根据角色ID删除关联表-->
+    <delete id="deleteRelationByRoleId" parameterType="int">
+        DELETE FROM role_resource_relation WHERE role_id = #{rid}
+    </delete>
+
+    <!--为角色分配资源, 删除完成后 ,插入最新的关联关系-->
+    <insert id="saveRelationByRoleResourceVo" parameterType="com.lagou.domain.RoleResourceVo">
+        INSERT INTO role_resource_relation VALUES
+        <foreach collection="resourceIdList" item="resource_id" separator=",">
+            (NULL,#{resource_id},#{roleId},#{createdTime},#{updatedTime},#{createdBy},#{updatedBy})
+        </foreach>
+    </insert>
 
 </mapper>

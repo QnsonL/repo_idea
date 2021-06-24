@@ -52,14 +52,14 @@ public class RoleController {
                 role.setCreatedBy(name);
                 role.setUpdatedBy(name);
                 roleService.saveRole(role);
-                ResponseResult result = new ResponseResult(true, 200, "响应成功", null);
+                ResponseResult result = new ResponseResult(true, 200, "新增响应成功", null);
                 return result;
             } else {
                 Date date = new Date();
                 role.setUpdatedTime(date);
                 role.setUpdatedBy(name);
                 roleService.updateRole(role);
-                ResponseResult result = new ResponseResult(true, 200, "响应成功", null);
+                ResponseResult result = new ResponseResult(true, 200, "修改响应成功", null);
                 return result;
             }
         } catch (Exception e) {
@@ -130,7 +130,42 @@ public class RoleController {
 
     }
 
+    /*
+        根据角色ID查询关联的资源信息
+     */
+    @RequestMapping("/findResourceListByRoleId")
+    public ResponseResult findResourceListByRoleId(Integer roleId){
 
+        List<ResourceCategory> resourceCategoryList = roleService.findResourceListByRoleId(roleId);
+
+        ResponseResult responseResult = new ResponseResult(true, 200, "查询角色关联的菜单信息成功", resourceCategoryList);
+
+        return responseResult;
+
+    }
+
+    /*
+        为角色分配菜单
+     */
+    @RequestMapping("/roleContextResource")
+    public ResponseResult roleContextResource(@RequestBody RoleResourceVo resourceVo, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        String name = user.getName();
+        //String name = "system";
+        try {
+                Date date = new Date();
+                resourceVo.setCreatedTime(date);
+                resourceVo.setUpdatedTime(date);
+                resourceVo.setCreatedBy(name);
+                resourceVo.setUpdatedBy(name);
+                roleService.roleContextResource(resourceVo);
+                ResponseResult result = new ResponseResult(true, 200, "响应成功", null);
+                return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

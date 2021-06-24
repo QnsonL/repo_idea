@@ -30,4 +30,19 @@ public class ResourceServiceImpl implements ResourceService {
 
         return pageInfo;
     }
+
+    @Override
+    public void saveResource(Resource resource) {
+        resourceMapper.saveResource(resource);
+    }
+
+    @Override
+    public void updateResource(Resource resource) {
+        resourceMapper.updateResource(resource);
+    }
+
+    @Override
+    public void deleteResource(Integer id) {
+        resourceMapper.deleteResource(id);
+    }
 }

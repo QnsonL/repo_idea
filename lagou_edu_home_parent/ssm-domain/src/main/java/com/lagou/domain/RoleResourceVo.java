@@ -1,51 +1,30 @@
 package com.lagou.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ResourceCategory {
-
-    private Integer id;
-    private String name;
-    private Integer sort;
+public class RoleResourceVo {
+    private Integer roleId;
+    private List<Integer> resourceIdList;
     private Date createdTime;
     private Date updatedTime;
     private String createdBy;
     private String updatedBy;
 
-    private List<Resource> resourceList = new ArrayList<>();
-
-    public List<Resource> getResourceList() {
-        return resourceList;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setResourceList(List<Resource> resourceList) {
-        this.resourceList = resourceList;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Integer getId() {
-        return id;
+    public List<Integer> getResourceIdList() {
+        return resourceIdList;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setResourceIdList(List<Integer> resourceIdList) {
+        this.resourceIdList = resourceIdList;
     }
 
     public Date getCreatedTime() {

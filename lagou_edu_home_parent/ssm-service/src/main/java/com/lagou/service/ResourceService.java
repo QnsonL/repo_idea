@@ -13,4 +13,9 @@ public interface ResourceService {
     public PageInfo<Resource> findAllResourceByPage(ResourseVo resourseVo);
 
 
+    void saveResource(Resource resource);
+
+    void updateResource(Resource resource);
+
+    void deleteResource(Integer id);
 }

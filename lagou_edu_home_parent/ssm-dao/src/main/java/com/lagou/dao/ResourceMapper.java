@@ -15,4 +15,9 @@ public interface ResourceMapper {
     public List<Resource> findAllResourceByPage(ResourseVo resourseVo);
 
 
+    void saveResource(Resource resource);
+
+    void updateResource(Resource resource);
+
+    void deleteResource(Integer id);
 }

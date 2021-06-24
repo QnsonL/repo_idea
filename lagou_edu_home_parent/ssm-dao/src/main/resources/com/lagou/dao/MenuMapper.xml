@@ -43,5 +43,54 @@
         select * from menu where id = #{id}
     </select>
 
+    <insert id="saveMenu" parameterType="com.lagou.domain.Menu">
+        insert into menu values (null,#{parentId},#{href},#{icon},#{name},#{description},#{orderNum},#{shown},#{level},
+        #{createdTime},#{updatedTime},#{createdBy},#{updatedBy});
+    </insert>
+
+    <update id="updateMenu" parameterType="com.lagou.domain.Menu">
+        update menu
+        <set>
+            <if test="parentId != null and parentId != ''">
+                parent_id = #{parentId},
+            </if>
+            <if test="href != null and href != ''">
+                href = #{href},
+            </if>
+            <if test="icon != null">
+                icon=#{icon},
+            </if>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="description != null and description != ''">
+                description=#{description},
+            </if>
+            <if test="orderNum != null and orderNum != ''">
+                order_num=#{orderNum},
+            </if>
+            <if test="shown != null and shown != ''">
+                shown=#{shown},
+            </if>
+            <if test="level != null and level != ''">
+                level=#{level},
+            </if>
+            <if test="createdTime != null">
+                created_time=#{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                updated_time=#{updatedTime},
+            </if>
+            <if test="createdBy != null">
+                created_by=#{createdBy},
+            </if>
+            <if test="updatedBy != null">
+                updated_by=#{updatedBy},
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">id = #{id}</if>
+        </where>
+    </update>
 
 </mapper>

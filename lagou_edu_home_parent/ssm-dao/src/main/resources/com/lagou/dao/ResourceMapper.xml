@@ -24,5 +24,48 @@
 
     </select>
 
+    <insert id="saveResource" parameterType="com.lagou.domain.Resource">
+        insert into resource values (null,#{name},#{url},#{categoryId},#{description},#{createdTime},#{updatedTime},#{createdBy},#{updatedBy});
+    </insert>
+
+    <update id="updateResource" parameterType="com.lagou.domain.Resource">
+        update resource
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                category_id=#{categoryId},
+            </if>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="description != null and description != ''">
+                description=#{description},
+            </if>
+            <if test="createdTime != null">
+                created_time=#{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                updated_time=#{updatedTime},
+            </if>
+            <if test="createdBy != null">
+                created_by=#{createdBy},
+            </if>
+            <if test="updatedBy != null">
+                updated_by=#{updatedBy},
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">id = #{id}</if>
+        </where>
+    </update>
+
+    <delete id="deleteResource" parameterType="int">
+        delete from resource where id = #{id}
+    </delete>
 
 </mapper>
