@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsm.mapper.UserMapper">
+
+    <resultMap id="User" type="User">
+        <id property="usrId" column="usr_id"/>
+        <result property="usrName" column="usr_name"/>
+        <result property="empId" column="emp_id"/>
+        <result property="accountNum" column="account_num"/>
+        <result property="telephone" column="telephone"/>
+        <result property="address" column="address"/>
+        <result property="remarks" column="remarks"/>
+        <association property="emp" column="emp_id" select="com.lsm.mapper.EmpMapper.findEmpById" fetchType="eager">
+            <id property="empId" column="emp_id"/>
+            <result property="empName" column="emp_name"/>
+            <result property="deptId" column="dept_id"/>
+            <result property="jobName" column="job_name"/>
+            <result property="joinDate" column="join_date"/>
+            <result property="telephone" column="telephone"/>
+        </association>
+    </resultMap>
+
+    <!--List<User> findAllUser();-->
+    <select id="findAllUser" resultMap="User">
+        select * from user
+    </select>
+
+    <!--List<User> findUserByEmpId(int empId);-->
+    <select id="findUserByEmpId" resultMap="User">
+        select * from user where emp_id = #{empId}
+    </select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsm.mapper.DeptMapper">
+
+    <resultMap id="DeptWithEmp" type="Dept">
+        <id property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="majorName" column="major_name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="email" column="email"/>
+        <collection property="empList" column="dept_id" ofType="Emp" select="com.lsm.mapper.EmpMapper.findEmpByDeptId">
+            <id property="empId" column="emp_id"/>
+            <result property="empName" column="emp_name"/>
+            <result property="deptId" column="dept_id"/>
+            <result property="jobName" column="job_name"/>
+            <result property="joinDate" column="join_date"/>
+            <result property="telephone" column="telephone"/>
+        </collection>
+    </resultMap>
+    <resultMap id="Dept" type="Dept">
+        <id property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="majorName" column="major_name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <select id="findAllDept" resultMap="Dept">
+        select * from dept
+    </select>
+
+    <select id="findDeptById" resultMap="Dept">
+        select * from dept where dept_id = #{id}
+    </select>
+</mapper>

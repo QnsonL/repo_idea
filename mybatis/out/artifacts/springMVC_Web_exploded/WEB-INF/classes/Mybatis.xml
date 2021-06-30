@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--configuration核心配置文件-->
+<configuration>
+
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--开启全局延迟加载功能-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--所有方法都会延迟加载,否则调用当前对象的equals、clone、hashCode、toString方法时也会触发关联对象的查询-->
+        <!--调用get方法时会加载-->
+        <setting name="lazyLoadTriggerMethods" value="toString()"/>
+    </settings>
+
+    <typeAliases>
+        <!--如果实体类里面多的话，用这个方法，之后用小写的类名-->
+        <!--如果用来别名，就按照别名作为名字-->
+        <package name="com.lsm.pojo"/>
+        <!--<typeAlias type="com.com.lsm.pojo.User" alias="user"></typeAlias>-->
+    </typeAliases>
+    
+    <!--映射文件-->
+    <mappers>
+        <!--<mapper resource="com/lsm/mapper/*.xml"/>-->
+        <package name="com.lsm.mapper"/>
+    </mappers>
+
+</configuration>

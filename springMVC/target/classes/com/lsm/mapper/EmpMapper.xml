@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsm.mapper.EmpMapper">
+
+    <resultMap id="Emp" type="Emp">
+        <id property="empId" column="emp_id"/>
+        <result property="empName" column="emp_name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="jobName" column="job_name"/>
+        <result property="joinDate" column="join_date"/>
+        <result property="telephone" column="telephone"/>
+        <association property="dept" column="dept_id" select="com.lsm.mapper.DeptMapper.findDeptById" fetchType="eager">
+            <id property="deptId" column="dept_id"/>
+            <result property="deptName" column="dept_name"/>
+            <result property="majorName" column="major_name"/>
+            <result property="telephone" column="telephone"/>
+            <result property="email" column="email"/>
+        </association>
+        <collection property="userList" column="emp_id" ofType="User" select="com.lsm.mapper.UserMapper.findUserByEmpId">
+            <id property="usrId" column="usr_id"/>
+            <result property="usrName" column="usr_name"/>
+            <result property="empId" column="emp_id"/>
+            <result property="accountNum" column="account_num"/>
+            <result property="telephone" column="telephone"/>
+            <result property="address" column="address"/>
+            <result property="remarks" column="remarks"/>
+        </collection>
+    </resultMap>
+    <select id="findAllEmp" resultMap="Emp">
+        select * from emp
+    </select>
+
+    <!--List<Emp> findEmpByDeptId(int deptId);-->
+    <select id="findEmpByDeptId" resultMap="Emp">
+        select * from emp where dept_id = #{deptId}
+    </select>
+
+    <!--Emp findEmpById(int id);-->
+    <select id="findEmpById" resultMap="Emp">
+        select * from emp where emp_id = #{id}
+    </select>
+
+    <!--void deleteByIds(Integer[] ids);-->
+    <delete id="deleteByIds">
+        delete from emp 
+        <where>
+            <foreach collection="array" open="emp_id in(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!--void save(Emp emp);-->
+    <insert id="save" parameterType="emp">
+        insert into emp values (null,#{empName},#{deptId},#{jobName},#{joinDate},#{telephone})
+    </insert>
+
+    <!--void update(Emp emp);-->
+    <update id="update" parameterType="emp">
+        update emp
+        <set>
+            <if test="empName != null">
+                emp_name = #{empName},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="jobName != null">
+                job_name = #{jobName},
+            </if>
+            <if test="joinDate != null">
+                join_date = #{joinDate},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone}
+            </if>
+        </set>
+        where emp_id = #{empId}
+    </update>
+</mapper>
