@@ -20,7 +20,7 @@
         <package name="com.lsm.pojo"/>
         <!--<typeAlias type="com.com.lsm.pojo.User" alias="user"></typeAlias>-->
     </typeAliases>
-    
+
     <!--映射文件-->
     <mappers>
         <!--<mapper resource="com/lsm/mapper/*.xml"/>-->

@@ -100,6 +100,7 @@
 
     <dependencies>
         <!--mybatis坐标-->
+        <!--换成1.8的时候记得换-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

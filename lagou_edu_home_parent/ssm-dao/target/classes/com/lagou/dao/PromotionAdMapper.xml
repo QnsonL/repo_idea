@@ -5,7 +5,7 @@
 
     <resultMap id="ad_space" type="com.lagou.domain.PromotionAd">
 
-        <id property="id" column="id"></id>
+        <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="spaceId" column="spaceId"/>
         <result property="keyword" column="keyword"/>
@@ -20,7 +20,7 @@
         <result property="priority" column="priority"/>
         <result property="img" column="img"/>
 
-        <association property="promotionSpace" select="com.lagou.dao.PromotionSpaceMapper.findPromotionSpaceById" column="spaceId" javaType="com.lagou.domain.PromotionSpace"></association>
+        <association property="promotionSpace" select="com.lagou.dao.PromotionSpaceMapper.findPromotionSpaceById" column="spaceId" javaType="com.lagou.domain.PromotionSpace"/>
 
     </resultMap>
 

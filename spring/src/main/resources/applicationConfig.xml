@@ -52,11 +52,13 @@
     <!--aop配置-->
     <aop:config>
         <aop:pointcut id="myPointcut" expression="execution(* com.lsm.service..*.*(..))"/>
-        <!--切面配置-->
+        <!-- 事务切面配置 -->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut"/>
-        <!-- 切面配置 -->
+
+        <!-- 普通切面配置 MyAdvice类是通知类-->
         <aop:aspect ref="myAdvice">
             <aop:before method="before" pointcut-ref="myPointcut"/>
+
         </aop:aspect>
     </aop:config>
 </beans>

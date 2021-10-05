@@ -46,7 +46,7 @@
     <!--aop配置-->
     <aop:config>
         <aop:pointcut id="myPointcut" expression="execution(* com.lsm.service..*.*(..))"/>
-        <!--切面配置-->
+        <!--事务专属切面配置-->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut"/>
         <!-- 切面配置 -->
         <aop:aspect ref="myAdvice">

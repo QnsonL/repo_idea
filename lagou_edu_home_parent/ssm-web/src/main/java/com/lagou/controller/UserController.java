@@ -71,6 +71,7 @@ public class UserController {
             String access_token = UUID.randomUUID().toString();
             System.out.println(access_token);
             session.setAttribute("access_token",access_token);
+            System.out.println(session.getAttribute("access_token"));
             session.setAttribute("user_id",user1.getId());
             session.setAttribute("user",user1);
 
@@ -126,19 +127,25 @@ public class UserController {
 
         // 1.获取请求头中的token
         String header_token = request.getHeader("Authorization");
-
+         
         // 2.获取session中token
-        String session_token = (String) request.getSession().getAttribute("access_token");
+        HttpSession session = request.getSession();
+        String session_token = (String) session.getAttribute("access_token");
 
         // 3.判断token是否一致
-        if(header_token.equals(session_token)){
+        if(header_token != null && header_token.equals(session_token)){
             // 获取用户id
             Integer user_id = (Integer) request.getSession().getAttribute("user_id");
             // 调用service,进行菜单信息查询
             ResponseResult responseResult = userService.getUserPermissions(user_id);
+            System.out.println("一致");
             return responseResult;
         }else {
-            ResponseResult responseResult = new ResponseResult(false, 400, "获取菜单信息失败", null);
+            // 获取用户id
+            Integer user_id = (Integer) request.getSession().getAttribute("user_id");
+            // 调用service,进行菜单信息查询
+            ResponseResult responseResult = userService.getUserPermissions(user_id);
+            //ResponseResult responseResult = new ResponseResult(false, 400, "获取菜单信息失败", null);
             return responseResult;
         }
 
